@@ -1,0 +1,9 @@
+# This tells Gitpod how to start the IDE
+image:
+  # Use a solid Rust-ready image
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: rustup update
+    command: |
+      echo "Ready! Use the terminal below to install Capsule"
