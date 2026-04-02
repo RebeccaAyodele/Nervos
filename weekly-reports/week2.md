@@ -79,10 +79,11 @@ Unlike most NFT systems where only metadata lives on-chain, the Spore Protocol s
 ![create a dob terminal](./assets/create-dob.png)
 ![create a dob frontend](./assets/create-dob-port.png)
 
-**Build a Simple Lock** — Ran a `hash_lock` script that protects a cell using a hash. To unlock it, you provide the original value that produces that hash. This was the clearest example of how lock scripts work end to end.
+**Build a Simple Lock** — Ran a `hash_lock` script that protects a cell using a hash. To unlock it, you provide the original value that produces that hash.
 
-![simple lock terminal](./assets/simple-lock.png)
-![simple lock frontend](./assets/simple-lock-port.png)
+![simple lock deploy](./assets/simple-lock-deploy.png)
+[simple lock deposit response](./assets/deposit-response.png)
+![simple lock frontend](./assets/simple-lock-frontend.png)
 
 ---
 
