@@ -25,15 +25,15 @@ Ran all five Build DApp tutorials: Transfer CKB, Store Data on Cell, Create a Fu
 
 **Scripts, not Smart Contracts**
 
-CKB doesn't call them smart contracts — it calls them Scripts. A script is a small program that runs during a transaction and returns either 0 (pass) or a non-zero number (fail). If it fails, the whole transaction is rejected.
+CKB doesn't call them smart contracts, it calls them Scripts. A script is a small program that runs during a transaction and returns either 0 (pass) or a non-zero number (fail). If it fails, the whole transaction is rejected.
 
 **What a Script actually is**
 
-A script has three parts: a `code_hash` which points to the actual program, a `hash_type` which says how to find it, and `args` which are extra inputs passed to it. The program itself is stored inside a cell's data field. Many people can share the same program but each use it with their own inputs — like how everyone uses the same lock system but with their own key.
+A script has three parts: a `code_hash` which points to the actual program, a `hash_type` which says how to find it, and `args` which are extra inputs passed to it. The program itself is stored inside a cell's data field. Many people can share the same program but each use it with their own inputs like how everyone uses the same lock system but with their own key.
 
 **Lock vs Type**
 
-A lock script controls who is allowed to spend a cell. It only runs when someone tries to consume that cell. A type script checks that the rules of an application are being followed — it runs both when a cell is created and when it's consumed. Every cell must have a lock script, but a type script is optional.
+A lock script controls who is allowed to spend a cell. It only runs when someone tries to consume that cell. A type script checks that the rules of an application are being followed. It runs both when a cell is created and when it's consumed. Every cell must have a lock script, but a type script is optional.
 
 **How Scripts Run**
 
@@ -41,11 +41,11 @@ When a transaction is submitted, CKB runs all the scripts attached to the input 
 
 **Syscalls**
 
-A script runs in an isolated environment so it can't read data freely. It uses syscalls — built-in functions that let the script ask CKB for specific data like cell contents or transaction details. Without syscalls, a script would be completely blind to the transaction around it.
+A script runs in an isolated environment so it can't read data freely. It uses syscalls built-in functions that let the script ask CKB for specific data like cell contents or transaction details. Without syscalls, a script would be completely blind to the transaction around it.
 
 **Cycle Limits**
 
-Every operation a script does costs cycles — a way to measure how much work it does. CKB puts a cap on how many cycles a script can use per transaction. This stops bad scripts from running forever and keeps the network fair.
+Every operation a script does costs cycles, a way to measure how much work it does. CKB puts a cap on how many cycles a script can use per transaction. This stops bad scripts from running forever and keeps the network fair.
 
 **Cell Data Storage**
 
@@ -59,27 +59,27 @@ Unlike most NFT systems where only metadata lives on-chain, the Spore Protocol s
 
 ## Practical Progress
 
-**Transfer CKB** — Sent CKB between two addresses. Learned that a transfer means destroying old cells and creating new ones, not just moving a number.
+**Transfer CKB**: Sent CKB between two addresses. Learned that a transfer means destroying old cells and creating new ones, not just moving a number.
 
 ![simple transfer terminal](./assets/simple%20transfer.png)
 ![simple transfer frontend](./assets/simple%20transfer%20port.png)
 
-**Store Data on Cell** — Stored "Hello CKB!" on-chain inside a cell's data field, then read it back and decoded it.
+**Store Data on Cell**: Stored "Hello CKB!" on-chain inside a cell's data field, then read it back and decoded it.
 
 ![store data on cell terminal](./assets/store%20data%20on%20cell.png)
 ![store data on cell frontend](./assets/store%20data%20on%20cell%20port.png)
 
-**Create a Fungible Token** — Created a token using the SUDT standard already deployed on testnet. Used `lib.ts` to understand how to reference a deployed script by hash and build a transaction that follows its rules.
+**Create a Fungible Token**: Created a token using the SUDT standard already deployed on testnet. Used `lib.ts` to understand how to reference a deployed script by hash and build a transaction that follows its rules.
 
 ![fungible token terminal](./assets/xUDT.png)
 ![fungible token frontend](./assets/xUDT%20port.png)
 
-**Create a DOB** — Minted a digital object using the Spore Protocol with real content stored inside the cell.
+**Create a DOB**: Minted a digital object using the Spore Protocol with real content stored inside the cell.
 
 ![create a dob terminal](./assets/create-dob.png)
 ![create a dob frontend](./assets/create-dob-port.png)
 
-**Build a Simple Lock** — Ran a `hash_lock` script that protects a cell using a hash. To unlock it, you provide the original value that produces that hash.
+**Build a Simple Lock**: Ran a `hash_lock` script that protects a cell using a hash. To unlock it, you provide the original value that produces that hash.
 
 ![simple lock deploy](./assets/simple-lock-deploy.png)
 [simple lock deposit response](./assets/deposit-response.png)
