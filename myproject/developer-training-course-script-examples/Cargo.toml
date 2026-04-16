@@ -1,0 +1,9 @@
+[workspace]
+members = ["tests", "contracts/always", "contracts/never", "contracts/ckb500", "contracts/occlock", "contracts/icclock", "contracts/hashlock", "contracts/counter", "contracts/jsoncell", "contracts/datacap", "contracts/data10", "contracts/icctype", "contracts/ic3type", "contracts/odcounter", "contracts/oc5type", "contracts/datarange", "contracts/doublecounter", "contracts/aggcounter", "contracts/aggdoublecounter", "contracts/oddoublecounter", "contracts/sudt"]
+
+[profile.release]
+overflow-checks = true
+opt-level = 's'
+lto = false
+codegen-units = 1
+panic = 'abort'

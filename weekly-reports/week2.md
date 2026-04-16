@@ -61,29 +61,29 @@ Unlike most NFT systems where only metadata lives on-chain, the Spore Protocol s
 
 **Transfer CKB**: Sent CKB between two addresses. Learned that a transfer means destroying old cells and creating new ones, not just moving a number.
 
-![simple transfer terminal](./assets/simple%20transfer.png)
-![simple transfer frontend](./assets/simple%20transfer%20port.png)
+![simple transfer terminal](./assets/week2/simple%20transfer.png)
+![simple transfer frontend](./assets/week2/simple%20transfer%20port.png)
 
 **Store Data on Cell**: Stored "Hello CKB!" on-chain inside a cell's data field, then read it back and decoded it.
 
-![store data on cell terminal](./assets/store%20data%20on%20cell.png)
-![store data on cell frontend](./assets/store%20data%20on%20cell%20port.png)
+![store data on cell terminal](./assets/week2/store%20data%20on%20cell.png)
+![store data on cell frontend](./assets/week2/store%20data%20on%20cell%20port.png)
 
 **Create a Fungible Token**: Created a token using the SUDT standard already deployed on testnet. Used `lib.ts` to understand how to reference a deployed script by hash and build a transaction that follows its rules.
 
-![fungible token terminal](./assets/xUDT.png)
-![fungible token frontend](./assets/xUDT%20port.png)
+![fungible token terminal](./assets/week2/xUDT.png)
+![fungible token frontend](./assets/week2/xUDT%20port.png)
 
 **Create a DOB**: Minted a digital object using the Spore Protocol with real content stored inside the cell.
 
-![create a dob terminal](./assets/create-dob.png)
-![create a dob frontend](./assets/create-dob-port.png)
+![create a dob terminal](./assets/week2/create-dob.png)
+![create a dob frontend](./assets/week2/create-dob-port.png)
 
 **Build a Simple Lock**: Ran a `hash_lock` script that protects a cell using a hash. To unlock it, you provide the original value that produces that hash.
 
-![simple lock deploy](./assets/simple-lock-deploy.png)
-[simple lock deposit response](./assets/deposit-response.png)
-![simple lock frontend](./assets/simple-lock-frontend.png)
+![simple lock deploy](./assets/week2/simple-lock-deploy.png)
+[simple lock deposit response](./assets/week2/deposit-response.png)
+![simple lock frontend](./assets/week2/simple-lock-frontend.png)
 
 ---
 
