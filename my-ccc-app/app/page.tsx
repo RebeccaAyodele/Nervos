@@ -1,95 +1,91 @@
 "use client"
 
-import Image from "next/image";
+import { ccc } from "@ckb-ccc/ccc";
+import { useCcc } from "@ckb-ccc/connector-react";
 import ConnectWallet from "@/components/ConnectWallet";
+import { useState } from "react";
 
 export default function Home() {
+  const { signerInfo } = useCcc();
+  const signer = signerInfo?.signer;
+  const [toAddress, setToAddress] = useState("");
+  const [amount, setAmount] = useState("");
+  const [txHash, setTxHash] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleTransfer() {
+    if (!signer) return;
+    setLoading(true);
+    setError("");
+    setTxHash("");
+
+    try {
+      const { script: lock } = await ccc.Address.fromString(toAddress, signer.client);
+
+      const tx = ccc.Transaction.from({
+        outputs: [{ capacity: ccc.fixedPointFrom(Number(amount)), lock }],
+      });
+
+      await tx.completeInputsByCapacity(signer);
+      await tx.completeFeeBy(signer);
+      const hash = await signer.sendTransaction(tx);
+      setTxHash(hash);
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <p className="text-2xl font-bold animate-bounce">Well done! You can now cook up CKB dApp with <span className="text-cyan-600">CCC</span>!!!</p>
-        <Image
-          className="dark:invert place-self-center spin-slow"
-          src="/ccc-logo.svg"
-          alt="CCC logo"
-          width={150}
-          height={150}
-          priority
-        />
-        
-        <div className="flex flex-col gap-3 items-center w-full">
-          <span className="text-2xl font-semibold">Why CCC?</span>
-          <div className='flex flex-col gap-2 items-start'>
-            <li>One-stop solution for your <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-            CKB JS/TS</code>
-            ecosystem development.</li>
-            <li>Empower yourself with CCC to discover the unlimited potential of CKB.</li>
-            <li>Interoperate with wallets from different chain ecosystems.</li>
-            <li>Fully enabling CKB's Turing completeness and cryptographic freedom power.</li>
+      <main className="flex flex-col gap-8 row-start-2 items-center w-full max-w-md">
+        <p className="text-2xl font-bold animate-bounce">
+          CKB Transfer App with CCC
+        </p>
+
+        <div className="flex gap-4 items-center">
+          <ConnectWallet />
+        </div>
+
+        {signer && (
+          <div className="flex flex-col gap-4 w-full">
+            <input
+              type="text"
+              placeholder="Recipient address"
+              value={toAddress}
+              onChange={(e) => setToAddress(e.target.value)}
+              className="border rounded-lg px-4 py-2 w-full dark:bg-black dark:border-white/20"
+            />
+            <input
+              type="number"
+              placeholder="Amount (CKB)"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="border rounded-lg px-4 py-2 w-full dark:bg-black dark:border-white/20"
+            />
+            <button
+              onClick={handleTransfer}
+              disabled={loading || !toAddress || !amount}
+              className="bg-cyan-600 text-white rounded-lg px-4 py-2 hover:bg-cyan-700 disabled:opacity-50"
+            >
+              {loading ? "Sending..." : "Send CKB"}
+            </button>
+
+            {txHash && (
+              <p className="text-green-500 text-sm break-all">
+                Transaction sent: {txHash}
+              </p>
+            )}
+            {error && (
+              <p className="text-red-500 text-sm break-all">
+                 {error}
+              </p>
+            )}
           </div>
-          
-        </div>
-        <div className="flex gap-4 items-center place-self-center">
-          
-          <ConnectWallet></ConnectWallet>
-          <a
-            className="rounded-full border border-solid border-black/[1] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://docs.ckbccc.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+        )}
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://github.com/ckb-devrel/ccc"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/github.svg"
-            alt="github icon"
-            width={16}
-            height={16}
-          />
-          GitHub
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://app.ckbccc.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://x.com/CKBDevrel"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/x-logo.svg"
-            alt="x icon"
-            width={16}
-            height={16}
-          />
-          Follow us →
-        </a>
-      </footer>
     </div>
   );
 }
