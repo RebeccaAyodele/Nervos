@@ -40,7 +40,7 @@ On the Rust vs TypeScript distinction — everything in the CCC playground is Ty
 
 - **Wrote original transaction code** — a multi-output transaction sending 100 CKB to one address and 50 CKB to a different address in a single transaction
 
-  ![Multi-output transaction](./assets/week5/outputs%20in%202%20cells.png)
+  ![Multi-output transaction](./assets/week5/Output%20in%202%20cells.png)
 
 - **Stored data in a cell** — converted "Becca" to hex using `TextEncoder` and stored it as cell data in an output
 

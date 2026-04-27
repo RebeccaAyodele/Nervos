@@ -11,6 +11,7 @@ export default function Home() {
   const [toAddress, setToAddress] = useState("");
   const [amount, setAmount] = useState("");
   const [txHash, setTxHash] = useState("");
+  const [txHistory, setTxHistory] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -31,6 +32,7 @@ export default function Home() {
       await tx.completeFeeBy(signer);
       const hash = await signer.sendTransaction(tx);
       setTxHash(hash);
+      setTxHistory((prev) => [...prev, hash]);
     } catch (e: any) {
       setError(e.message);
     } finally {
@@ -82,6 +84,16 @@ export default function Home() {
               <p className="text-red-500 text-sm break-all">
                  {error}
               </p>
+            )}
+            {txHistory.length > 0 && (
+              <div className="flex flex-col gap-2 w-full">
+                <p className="font-semibold text-sm">Transaction History</p>
+                {txHistory.map((hash, index) => (
+                  <p key={index} className="text-green-500 text-xs break-all">
+                    {hash}
+                  </p>
+                ))}
+              </div>
             )}
           </div>
         )}
