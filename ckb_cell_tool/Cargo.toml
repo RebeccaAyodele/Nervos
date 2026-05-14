@@ -1,0 +1,7 @@
+[package]
+name = "ckb_cell_tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bech32 = "0.9"
